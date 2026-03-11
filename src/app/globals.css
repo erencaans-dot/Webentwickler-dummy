@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-neon-cyan: #00f3ff;
+  --color-electric-purple: #b537f2;
+  --color-glowing-green: #00ff66;
+  --color-dark-surface: #111111;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #050505;
+    --foreground: #ededed;
+  }
+}
+
+/* Force Deep Dark Mode by default, unless user specifies otherwise */
+:root {
+  --background: #050505;
+  --foreground: #ededed;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Glassmorphism Utilities */
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl;
+  }
+  
+  .glass-card {
+    @apply bg-black/40 backdrop-blur-lg border border-white/10 rounded-xl transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply border-white/30 shadow-[0_0_15px_rgba(0,243,255,0.2)];
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 10px rgba(181, 55, 242, 0.7);
+  }
+}
