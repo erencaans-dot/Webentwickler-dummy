@@ -27,5 +27,6 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WEBENTWICKLER_DEMO }}
           channelId: live
           projectId: webentwickler-demo
+          args: --force
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
