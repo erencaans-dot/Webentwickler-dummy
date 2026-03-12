@@ -15,15 +15,19 @@ jobs:
           node-version: 24
           cache: 'npm'
 
-      - name: Install dependencies and build
-        run: npm ci && npm run build
-        env:
-          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
-          BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
-      - name: Create .env file for Firebase
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and Create Env
         run: |
-          echo "BASIC_AUTH_USER=${{ secrets.BASIC_AUTH_USER }}" >> .env.production
-          echo "BASIC_AUTH_PASSWORD=${{ secrets.BASIC_AUTH_PASSWORD }}" >> .env.production
+          # Wir mappen hier BASIC_AUTH (GitHub) auf ADMIN (dein Code)
+          echo "ADMIN_USER=${{ secrets.BASIC_AUTH_USER }}" >> .env.production
+          echo "ADMIN_PASSWORD=${{ secrets.BASIC_AUTH_PASSWORD }}" >> .env.production
+          npm run build
+        env:
+          ADMIN_USER: ${{ secrets.BASIC_AUTH_USER }}
+          ADMIN_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -33,3 +37,5 @@ jobs:
           force: true
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
+          ADMIN_USER: ${{ secrets.BASIC_AUTH_USER }}
+          ADMIN_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
