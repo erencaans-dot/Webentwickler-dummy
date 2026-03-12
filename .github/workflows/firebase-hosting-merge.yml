@@ -20,7 +20,10 @@ jobs:
         env:
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
-
+      - name: Create .env file for Firebase
+        run: |
+          echo "BASIC_AUTH_USER=${{ secrets.BASIC_AUTH_USER }}" >> .env.production
+          echo "BASIC_AUTH_PASSWORD=${{ secrets.BASIC_AUTH_PASSWORD }}" >> .env.production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
